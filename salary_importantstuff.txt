@@ -1,0 +1,3 @@
+'job_title', 'experience_years', 'education_level', 'skills_count',
+'industry', 'company_size', 'location', 'remote_work', 'certifications',
+'salary' -> columns
