@@ -11,9 +11,13 @@ from sklearn.ensemble import HistGradientBoostingRegressor, RandomForestRegresso
 # 1. Initialize everything
 # -----------------------
 
-df = pd.read_csv(
-    "kagglehub/datasets/nalisha/job-salary-prediction-dataset/versions/1/job_salary_prediction_dataset.csv" #ignore the path its huge ik
-    ).dropna() 
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+
+csv_path = BASE_DIR / "kagglehub/datasets/nalisha/job-salary-prediction-dataset/versions/1/job_salary_prediction_dataset.csv"
+
+df = pd.read_csv(csv_path).dropna()
 
 drop_features = ["skills_count", "company_size", "remote_work", "location", "certifications"] #we're not using this for now
 df = df.drop(columns=drop_features) #drop em
@@ -79,7 +83,6 @@ x_test = x_test.reindex(columns=x_train.columns, fill_value=0)
 poly = PolynomialFeatures()
 x_train_poly = poly.fit_transform(x_train)
 x_test_poly = poly.transform(x_test)
-""" #more models
 
 lr = LinearRegression()
 gbr = HistGradientBoostingRegressor()
@@ -105,12 +108,4 @@ for model in [gbr, rfr]:
     mae = mean_absolute_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
     print(f"Model: {model}\nR^2:{r2}\nMAE: {mae}\n")
- """
 
-for i in [100, 150, 200, 250]:
-    model =  HistGradientBoostingRegressor(max_iter=i)
-    model.fit(x_train_poly, y_train)
-    y_pred = model.predict(x_test_poly)
-    mae = mean_absolute_error(y_test, y_pred)
-    r2 = r2_score(y_test, y_pred)
-    print(f"{i=}, {r2=}, {mae=}")
