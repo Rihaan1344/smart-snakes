@@ -1,0 +1,16 @@
+{
+    "root": {
+        "class": "TABLE",
+        "x": {
+            "class": "TABLE",
+            "y": {
+                "class": "NUMBER",
+                "value": 7
+            }
+        },
+        "z": {
+            "class": "STRING",
+            "value": "\"Hello\""
+        }
+    }
+}
